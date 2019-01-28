@@ -89,3 +89,26 @@ Point all domains to root folder and one/specific domain to a subfolder in the r
 <code>C:\Windows\System32\drivers\etc\hosts</code>
 
 4. Paste this code <code>127.0.0.1 sub.domin.com</code>
+
+
+
+
+
+
+
+
+## MySQL data Return in JSON format
+
+```php
+<?php
+$pdo = new PDO('mysql:host=localhost', 'root', '', [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+
+$result = $pdo->query('SELECT * FROM database_name.users;');
+$rows = $result->fetchAll(PDO::FETCH_ASSOC);
+header('Content-Type: application/json;charset=utf-8');
+echo json_encode(['streamers' => $rows],
+     JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+?>
+```
